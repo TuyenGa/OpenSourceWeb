@@ -23,7 +23,7 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'password' =>$request->get('password')
         ];
-        $response = $client->request('POST','login?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0b2tlbl9jaGVja190aW1lX291dCIsImlhdCI6MTQ5MDk0NzIxMSwiZXhwIjoxNDkwOTQ3NTExLCJuYmYiOjE0OTA5NDcyMTEsInN1YiI6MSwianRpIjoiMDdmYWJjNWMyODliOWE2YzliOGIxNTJjNjJhZTFmMTAifQ.gnGcEFoiv6u3XlJPtXjVeWXY1PmwbrxyW93UnYpK7lM',[
+        $response = $client->request('POST','login?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0b2tlbl9jaGVja190aW1lX291dCIsImlhdCI6MTQ5MTEwMDY3NiwiZXhwIjoxNDkxMTAwOTc2LCJuYmYiOjE0OTExMDA2NzYsInN1YiI6MSwianRpIjoiZDBmMWNhYTRjOTFhYjY3NDFkMGRmMDM0MDNmNDQyNzcifQ.qu8AsaNG9JL2ge7UL9gkBUCrslB_y_UiiwWk-qUH7xg',[
             'form_params' => $data
 
         ]);
@@ -31,13 +31,17 @@ class UserController extends Controller
         $login = $body->getContents();
 
         $message = \GuzzleHttp\json_decode($login , false,512,JSON_BIGINT_AS_STRING)->status;
-        $err  = \GuzzleHttp\json_decode($login , false,512,JSON_BIGINT_AS_STRING)->message['0'];
+        $token  = \GuzzleHttp\json_decode($login , false,512,JSON_BIGINT_AS_STRING)->data;
+        $request->session()->put('users',$token);
 
         if ($message == 'success')
         {
-//            echo "<pre>";
-//            print_r($message)
-            return redirect()->route('homes.index');
+            echo "<pre>";
+            print_r($token);
+            echo '<br>';
+            echo $request->session()->get('users');
+            echo "<pre>";
+//            return redirect()->route('homes.index');
 
         }
         else
@@ -75,7 +79,7 @@ class UserController extends Controller
             'relationships' => $request->get('relationships'),
             'phone_parent'=> $request->get('phone_parent')
         ];
-        $response = $client->request('POST','register?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0b2tlbl9jaGVja190aW1lX291dCIsImlhdCI6MTQ5MDk0NzUxMCwiZXhwIjoxNDkwOTQ3ODEwLCJuYmYiOjE0OTA5NDc1MTAsInN1YiI6MSwianRpIjoiOWYzYWIxNzI0YmJjOTVjOTQyZTdjN2EyMTJkYWRlM2QifQ.PHRrnJhCZa-jiPOLyJY9ebMQsFGtHpWEzS50013rFqA',[
+        $response = $client->request('POST','register?token='.$request->session()->get('users'),[
             'form_params' =>$data
         ]);
 
@@ -87,5 +91,23 @@ class UserController extends Controller
             print_r($message);
         echo "</pre>";
 //        return redirect('home.index');
+    }
+    public function ListUser(Request $request)
+    {
+        $client = new Client([
+           'base_uri' => 'http://45.55.77.182:8888/api/v2.0/',
+            'timeout' => 20
+        ]);
+
+        $response = $client->request('GET' , 'user?token='.$request->session()->get('users'));
+
+        $body = $response->getBody();
+
+        $content = $body->getContents();
+
+        $listUser = \GuzzleHttp\json_decode($content, false, 512, JSON_BIGINT_AS_STRING)->data->users->data;
+
+        return view('homes.listUser',compact('listUser'));
+
     }
 }

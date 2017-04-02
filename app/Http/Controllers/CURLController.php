@@ -7,44 +7,33 @@ use GuzzleHttp\Client;
 
 class CURLController extends Controller
 {
-     public  function ListUser()
-     {
-         $client = new Client([
-             'base_uri' => 'http://45.55.77.182:8888/api/v2.0/',
-             'timeout'=> 7.0,
-             'headers' => ['user-Agent' =>'ListUser']
-         ]);
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
 
+    public function checkToken(Request $request)
+    {
+        $client = new Client([
+            'base_uri' => 'http://45.55.77.182:8888/api/v2.0/',
+            'timeout' => 20
+        ]);
 
-         $response = $client->request('GET','user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC92Mi4wXC9sb2dpbiIsImlhdCI6MTQ5MDQ0MzA3MiwiZXhwIjoxNDkxNjUyNjcyLCJuYmYiOjE0OTA0NDMwNzIsInN1YiI6MSwianRpIjoiNWM1MTkxYjkxY2NjYTE3YWNjMDExNGY1OGFhOWM2MTEifQ.voSmg-C4Nu1LjqGbsb5DQTEpLmn1DVEpsZ_qXMFHmi8');
+        $response = $client->request('GET', 'check');
 
+        $body = $response->getBody();
 
-             $body = $response->getBody();
-             $content =  $body->getContents();
+        $content = $body->getContents();
 
+        $token = \GuzzleHttp\json_decode($content,false,512, JSON_BIGINT_AS_STRING)->Data;
 
-            $listUser = \GuzzleHttp\json_decode($content,false,512,JSON_BIGINT_AS_STRING)->data->users->data;
+        $request->session()->put('check' , $token);
 
-//            echo "<pre>";
-//                print_r($token);
-//            echo "</pre>";
-            return view('homes.listUser',compact('listUser'));
+        echo "<pre>";
+        print_r($token);
+        echo "</pre>";
 
-     }
-
-     public function checkToken()
-     {
-         $client = new Client([
-             'base_uri' => 'http://45.55.77.182:8888/api/v2.0/',
-             'timeout'=> 7.0,
-             'headers' => ['user-Agent' =>'ListUser']
-         ]);
-
-         $getToken = $client->request('GET','check');
-         $tokenBody=  $getToken->getBody();
-         $contentToken = $tokenBody->getContents();
-         $token = \GuzzleHttp\json_decode($contentToken,false,512,JSON_BIGINT_AS_STRING)->data;
-     }
+    }
 
 
 }
