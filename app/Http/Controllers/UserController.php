@@ -23,7 +23,7 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'password' =>$request->get('password')
         ];
-        $response = $client->request('POST','login?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0b2tlbl9jaGVja190aW1lX291dCIsImlhdCI6MTQ5MDk0NzIxMSwiZXhwIjoxNDkwOTQ3NTExLCJuYmYiOjE0OTA5NDcyMTEsInN1YiI6MSwianRpIjoiMDdmYWJjNWMyODliOWE2YzliOGIxNTJjNjJhZTFmMTAifQ.gnGcEFoiv6u3XlJPtXjVeWXY1PmwbrxyW93UnYpK7lM',[
+        $response = $client->request('POST','login?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC80NS41NS43Ny4xODI6ODg4OFwvYXBpXC92Mi4wXC9sb2dpbiIsImlhdCI6MTQ5MTA2MjY4NSwiZXhwIjoxNDkyMjcyMjg1LCJuYmYiOjE0OTEwNjI2ODUsInN1YiI6MzAsImp0aSI6ImZkZGRlNDIwYjJiNTAyNzA2N2NhYTA1ZGI1MGY0YzZlIn0.OY2P0wIiNo_KeJjyOAR514Xf_YmGjsotprLvCGZkmEI',[
             'form_params' => $data
 
         ]);
@@ -75,7 +75,7 @@ class UserController extends Controller
             'relationships' => $request->get('relationships'),
             'phone_parent'=> $request->get('phone_parent')
         ];
-        $response = $client->request('POST','register?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0b2tlbl9jaGVja190aW1lX291dCIsImlhdCI6MTQ5MDk0NzUxMCwiZXhwIjoxNDkwOTQ3ODEwLCJuYmYiOjE0OTA5NDc1MTAsInN1YiI6MSwianRpIjoiOWYzYWIxNzI0YmJjOTVjOTQyZTdjN2EyMTJkYWRlM2QifQ.PHRrnJhCZa-jiPOLyJY9ebMQsFGtHpWEzS50013rFqA',[
+        $response = $client->request('POST','register?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0b2tlbl9jaGVja190aW1lX291dCIsImlhdCI6MTQ5MTA2Mjk4MSwiZXhwIjoxNDkxMDYzMjgxLCJuYmYiOjE0OTEwNjI5ODEsInN1YiI6MSwianRpIjoiOGNmOWIxNjAwMDY4YWZkZjNhNmYxZDgxMjFhMzUxOTQifQ.eXKwcT8Y4cxSDz7kt6m0y63cYTYw_DJDv8VMrxVtgEk',[
             'form_params' =>$data
         ]);
 
@@ -86,6 +86,6 @@ class UserController extends Controller
         echo "<pre>";
             print_r($message);
         echo "</pre>";
-//        return redirect('home.index');
+       // return redirect('home.index');
     }
 }

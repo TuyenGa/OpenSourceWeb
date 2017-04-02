@@ -16,7 +16,7 @@ class CURLController extends Controller
          ]);
 
 
-         $response = $client->request('GET','user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC92Mi4wXC9sb2dpbiIsImlhdCI6MTQ5MDQ0MzA3MiwiZXhwIjoxNDkxNjUyNjcyLCJuYmYiOjE0OTA0NDMwNzIsInN1YiI6MSwianRpIjoiNWM1MTkxYjkxY2NjYTE3YWNjMDExNGY1OGFhOWM2MTEifQ.voSmg-C4Nu1LjqGbsb5DQTEpLmn1DVEpsZ_qXMFHmi8');
+         $response = $client->request('GET','user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC80NS41NS43Ny4xODI6ODg4OFwvYXBpXC92Mi4wXC9sb2dpbiIsImlhdCI6MTQ5MTA2MjY4NSwiZXhwIjoxNDkyMjcyMjg1LCJuYmYiOjE0OTEwNjI2ODUsInN1YiI6MzAsImp0aSI6ImZkZGRlNDIwYjJiNTAyNzA2N2NhYTA1ZGI1MGY0YzZlIn0.OY2P0wIiNo_KeJjyOAR514Xf_YmGjsotprLvCGZkmEI');
 
 
              $body = $response->getBody();
