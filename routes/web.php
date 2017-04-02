@@ -11,11 +11,15 @@
 |
 */
 
+Route::get('/check', 'CURLController@checkToken');
 Route::get('/',[
     'as' => 'homes.index',
     'uses' => 'HomeController@index'
 ]);
-Route::get('/ListUser','CURLController@ListUser');
+
+
+
+
 Route::get('/login','UserController@getLogin');
 Route::post('/login',[
     'as'=>'post.login'   ,
@@ -26,3 +30,4 @@ Route::post('/register',[
    'as' => 'post.register',
     'uses'=> 'UserController@postRegister'
 ]);
+Route::get('/ListUser','UserController@ListUser');
